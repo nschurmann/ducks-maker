@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Opinionated way to create redux ducks",
   "main": "dist/index.js",
-  "repository": "https://github.com/nschurmann/redux-ducks.git",
+  "repository": "https://github.com/nschurmann/ducks-maker.git",
   "author": "Nicolas Schurmann",
   "license": "MIT",
   "scripts": {
