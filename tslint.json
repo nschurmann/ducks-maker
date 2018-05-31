@@ -1,0 +1,12 @@
+{
+  "extends": ["tslint:recommended"],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**/*.ts"
+    ]
+  },
+  "rules": {
+    "semicolon": [false, "always"],
+    "quotemark": [true, "single", "always"]
+  }
+}

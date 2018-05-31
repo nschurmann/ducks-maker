@@ -1,0 +1,42 @@
+{
+  "name": "redux-ducks",
+  "version": "1.0.0",
+  "description": "Opinionated way to create redux ducks",
+  "main": "dist/index.js",
+  "repository": "https://github.com/nschurmann/redux-ducks.git",
+  "author": "Nicolas Schurmann",
+  "license": "MIT",
+  "scripts": {
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/(*.)+(spec|test).+(ts|tsx)"
+    ],
+    "testPathIgnorePatterns": [
+      "/lib"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "jest": "^23.1.0",
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.4"
+  }
+}
