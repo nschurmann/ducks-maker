@@ -1,4 +1,4 @@
-# redux-ducks
+# ducks-maker
 Yet another way to implement ducks in your redux app.
 
 Every time I add actions, types and reducers, they keep doing almost everytime the same thing, using redux ducks helped me to stay organized and this library helped me to keep my ducks short.
@@ -100,7 +100,7 @@ const FETCH_ERROR = 'my-module/fetch-error'
 ```
 changes to:
 ```javascript
-import { makeTypes } from 'redux-ducks'
+import { makeTypes } from 'ducks-for-redux'
 
 const t = makeTypes('my-module')
 const FETCH = t('fetch', true)
@@ -117,7 +117,7 @@ FETCH.ERROR === 'my-module/fetch-error'
 It's included a utility that helps building action creators, called `mac` (short for makeActionCreator) this is explained in the documentation of redux `reducing boilerplate`
 
 ```javascript
-import { makeTypes } from 'redux-ducks'
+import { makeTypes } from 'ducks-maker'
 
 const action1 = mac('my-action-1')
 action1()
@@ -150,7 +150,7 @@ const errorFetch = mac(FETCH.ERROR, 'error')
 So far so good, our duck looks like this now:
 
 ```javascript
-import { makeTypes, mac } from 'redux-ducks'
+import { makeTypes, mac } from 'ducks-maker'
 import { get } from 'axios'
 
 const t = makeTypes('my-module')
@@ -209,7 +209,7 @@ export fetch = () =>
 We can still improve even further with the introduction of async action creators or `asyncMac` for short:
 
 ```javascript
-import { makeTypes, asyncMac } from 'redux-ducks'
+import { makeTypes, asyncMac } from 'ducks-maker'
 
 const t = makeTypes('my-module')
 const FETCH = t('fetch', true) // this holds START, SUCCESS and ERROR
@@ -237,7 +237,7 @@ fetch.error(1)
 so now our reducer looks like this:
 
 ```javascript
-import { makeTypes, mac, asyncMac } from 'redux-ducks'
+import { makeTypes, mac, asyncMac } from 'ducks-maker'
 import { get } from 'axios'
 
 const t = makeTypes('my-module')
@@ -319,7 +319,7 @@ now import it in your duck and pass it to createReducer:
 ```javascript
 // yourduck.js
 
-import { makeTypes, mac, asyncMac, createReducer } from 'redux-ducks'
+import { makeTypes, mac, asyncMac, createReducer } from 'ducks-maker'
 import { get } from 'axios'
 import { createFetch } from './hors'
 
