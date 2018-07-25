@@ -29,8 +29,8 @@ export function makeTypes(mod: string) {
 
     if (sub) {
       return {
-        ADD: `${t}-subscribe-add-entity`,
-        SUBSCRIBE: `${t}-subscribe`,
+        ADD: `${t}-add-entity`,
+        SUBSCRIBE: `${t}-hooked`,
         UNSUSCRIBE: `${t}-unsubscribe`,
       }
     }
