@@ -62,7 +62,7 @@ export function asyncMac(types: { START: string, SUCCESS: string, ERROR: string 
 export function subscribeMac(types: { SUBSCRIBE: string, UNSUBSCRIBE: string, ADD: string }) {
   return {
     add: mac(`${types.ADD}`),
-    subscribe: mac(`${types.SUBSCRIBE}`),
+    subscribe: mac(`${types.SUBSCRIBE}`, 'payload'),
     unsubscribe: mac(`${types.UNSUBSCRIBE}`),
   }
 }
