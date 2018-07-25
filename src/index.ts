@@ -61,7 +61,7 @@ interface ITyper {
   single: () => string
   subscribe: () => ISubscribeTypes
 }
-export function makeTypes(mod: string): (x: string) => ITyper {
+export function makeTypes(mod: string): ((x: string) => ITyper) {
   return (type: string) => {
     const t = `${mod}/${type}`
     return {
