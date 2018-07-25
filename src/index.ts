@@ -14,6 +14,18 @@ interface IActionSuccess<T> {
   payload?: T
 }
 
+interface IAsyncTypes {
+  ERROR: string
+  START: string
+  SUCCESS: string
+}
+
+interface ISubscribeTypes {
+  ADD: string
+  SUBSCRIBE: string
+  UNSUBSCRIBE: string
+}
+
 interface IAsyncMac {
   error: (x: any) => IActionError,
   start: () => IActionStart,
@@ -45,25 +57,21 @@ export const reduceReducers = (...reducers: any[]) => (prevState: any, value: an
   )
 
 export function makeTypes(mod: string) {
-  return (type: any, async?: boolean, sub?: boolean) => {
+  return (type: string) => {
     const t = `${mod}/${type}`
-    if (async) {
-      return {
+    return {
+      async: (): IAsyncTypes => ({
         ERROR: `${t}-error`,
         START: `${t}-start`,
         SUCCESS: `${t}-success`,
-      }
-    }
-
-    if (sub) {
-      return {
+      }),
+      single: (): string => t,
+      subscribe: (): ISubscribeTypes => ({
         ADD: `${t}-add-entity`,
         SUBSCRIBE: `${t}-hooked`,
-        UNSUSCRIBE: `${t}-unsubscribe`,
-      }
+        UNSUBSCRIBE: `${t}-unsubscribe`,
+      }),
     }
-
-    return t
   }
 }
 
@@ -79,7 +87,7 @@ export function mac(type: string, ...argNames: any[]): ActionCreator<any> {
 }
 
 // asyncMakeActionCreator
-export function asyncMac(types: { START: string, SUCCESS: string, ERROR: string }): IAsyncMac {
+export function asyncMac(types: IAsyncTypes): IAsyncMac {
   return {
     error: mac(`${types.ERROR}`, 'error'),
     start: mac(`${types.START}`),
@@ -87,7 +95,8 @@ export function asyncMac(types: { START: string, SUCCESS: string, ERROR: string 
   }
 }
 
-export function subscribeMac(types: { SUBSCRIBE: string, UNSUBSCRIBE: string, ADD: string }): ISubscribeMac {
+// subscribe
+export function subscribeMac(types: ISubscribeTypes): ISubscribeMac {
   return {
     add: mac(`${types.ADD}`),
     subscribe: mac(`${types.SUBSCRIBE}`, 'payload'),
