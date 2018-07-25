@@ -17,13 +17,21 @@ export const reduceReducers = (...reducers: any[]) => (prevState: any, value: an
   )
 
 export function makeTypes(mod: string) {
-  return (type: any, async?: boolean) => {
+  return (type: any, async?: boolean, sub?: boolean) => {
     const t = `${mod}/${type}`
     if (async) {
       return {
         ERROR: `${t}-error`,
         START: `${t}-start`,
         SUCCESS: `${t}-success`,
+      }
+    }
+
+    if (sub) {
+      return {
+        ADD: `${t}-subscribe-add-entity`,
+        SUBSCRIBE: `${t}-subscribe`,
+        UNSUSCRIBE: `${t}-unsubscribe`,
       }
     }
 
@@ -48,5 +56,13 @@ export function asyncMac(types: { START: string, SUCCESS: string, ERROR: string 
     error: mac(`${types.ERROR}`, 'error'),
     start: mac(`${types.START}`),
     success: mac(`${types.SUCCESS}`, 'payload'),
+  }
+}
+
+export function subscribeMac(types: { SUBSCRIBE: string, UNSUBSCRIBE: string, ADD: string }) {
+  return {
+    add: mac(`${types.ADD}`),
+    subscribe: mac(`${types.SUBSCRIBE}`),
+    unsubscribe: mac(`${types.UNSUBSCRIBE}`),
   }
 }

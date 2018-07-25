@@ -27,13 +27,20 @@ exports.reduceReducers = function () {
     };
 };
 function makeTypes(mod) {
-    return function (type, async) {
+    return function (type, async, sub) {
         var t = mod + "/" + type;
         if (async) {
             return {
                 ERROR: t + "-error",
                 START: t + "-start",
                 SUCCESS: t + "-success",
+            };
+        }
+        if (sub) {
+            return {
+                ADD: t + "-subscribe-add-entity",
+                SUBSCRIBE: t + "-subscribe",
+                UNSUSCRIBE: t + "-unsubscribe",
             };
         }
         return t;
@@ -68,3 +75,11 @@ function asyncMac(types) {
     };
 }
 exports.asyncMac = asyncMac;
+function subscribeMac(types) {
+    return {
+        add: mac("" + types.ADD),
+        subscribe: mac("" + types.SUBSCRIBE),
+        unsubscribe: mac("" + types.UNSUBSCRIBE),
+    };
+}
+exports.subscribeMac = subscribeMac;
