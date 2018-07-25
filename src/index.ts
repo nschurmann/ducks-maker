@@ -1,4 +1,32 @@
-export function createReducer(initialState: {}, actionHandlers: {}) {
+import { ActionCreator, Reducer } from 'redux'
+
+interface IActionError {
+  type: string
+  error: any
+}
+
+interface IActionStart {
+  type: string
+}
+
+interface IActionSuccess<T> {
+  type: string
+  payload: T
+}
+
+interface IAsyncMac {
+  error: (x: any) => IActionError,
+  start: () => IActionStart,
+  success: <T>(x: T) => IActionSuccess<T>,
+}
+
+interface ISubscribeMac {
+  add: <T>(x: T) => IActionSuccess<T>,
+  subscribe: () => IActionStart,
+  unsubscribe: <T>(x: T) => IActionStart,
+}
+
+export function createReducer(initialState: {}, actionHandlers: {}): Reducer {
   return function reducer(state = initialState, action: any) {
     if (actionHandlers.hasOwnProperty(action.type)) {
       const newState = actionHandlers[action.type](state, action)
@@ -40,7 +68,7 @@ export function makeTypes(mod: string) {
 }
 
 // makeActionCreator
-export function mac(type: string, ...argNames: any[]) {
+export function mac(type: string, ...argNames: any[]): ActionCreator<any> {
   return function ac(...args: any[]) {
     const action = { type }
     argNames.forEach((arg, index) => {
@@ -51,7 +79,7 @@ export function mac(type: string, ...argNames: any[]) {
 }
 
 // asyncMakeActionCreator
-export function asyncMac(types: { START: string, SUCCESS: string, ERROR: string }): any {
+export function asyncMac(types: { START: string, SUCCESS: string, ERROR: string }): IAsyncMac {
   return {
     error: mac(`${types.ERROR}`, 'error'),
     start: mac(`${types.START}`),
@@ -59,7 +87,7 @@ export function asyncMac(types: { START: string, SUCCESS: string, ERROR: string 
   }
 }
 
-export function subscribeMac(types: { SUBSCRIBE: string, UNSUBSCRIBE: string, ADD: string }) {
+export function subscribeMac(types: { SUBSCRIBE: string, UNSUBSCRIBE: string, ADD: string }): ISubscribeMac {
   return {
     add: mac(`${types.ADD}`),
     subscribe: mac(`${types.SUBSCRIBE}`, 'payload'),
