@@ -56,17 +56,22 @@ export const reduceReducers = (...reducers: any[]) => (prevState: any, value: an
     prevState,
   )
 
-export function makeTypes(mod: string) {
+interface ITyper {
+  async: () => IAsyncTypes
+  single: () => string
+  subscribe: () => ISubscribeTypes
+}
+export function makeTypes(mod: string): (x: string) => ITyper {
   return (type: string) => {
     const t = `${mod}/${type}`
     return {
-      async: (): IAsyncTypes => ({
+      async: () => ({
         ERROR: `${t}-error`,
         START: `${t}-start`,
         SUCCESS: `${t}-success`,
       }),
-      single: (): string => t,
-      subscribe: (): ISubscribeTypes => ({
+      single: () => t,
+      subscribe: () => ({
         ADD: `${t}-add-entity`,
         SUBSCRIBE: `${t}-hooked`,
         UNSUBSCRIBE: `${t}-unsubscribe`,
