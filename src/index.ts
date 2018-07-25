@@ -11,7 +11,7 @@ interface IActionStart {
 
 interface IActionSuccess<T> {
   type: string
-  payload: T
+  payload?: T
 }
 
 interface IAsyncMac {
