@@ -14,21 +14,21 @@ interface ActionSuccess<T> {
   payload: T
 }
 
-export type createReducer = (initialState: any, actionHandlers: any) => Reducer
+export function createReducer(initialState: any, actionHandlers: any): Reducer
 
-export type reduceReducers = (Reducer[]) => (prevState: any, value: any, ...args: any[]) => any
+export function reduceReducers(x: Reducer[]): (prevState: any, value: any, ...args: any[]) => any
 
-export type makeTypes = (mod: string) => (type: any, async?: boolean, sub?: boolean) => any
+export function makeTypes(mod: string): (type: any, async?: boolean, sub?: boolean) => any
 
-export type mac = (type: string, argNames: any[]) => AnyAction
+export function mac(type: string, argNames: any[]): AnyAction
 
-export type asyncMac = (types: { START: string, SUCCESS: string, ERROR: string }) => {
+export function asyncMac(types: { START: string, SUCCESS: string, ERROR: string }): {
   error: (x: any) => ActionError,
   start: () => ActionStart,
   success: <T>(x: T) => ActionSuccess<T>,
 }
 
-export type subscribeMac = (types: { ADD: string, SUBSCRIBE: string, UNSUBSCRIBE: string }) => {
+export function subscribeMac(types: { ADD: string, SUBSCRIBE: string, UNSUBSCRIBE: string }): {
   add: <T>(x: T) => ActionSuccess<T>,
   subscribe: () => ActionStart,
   unsubscribe: <T>(x: T) => ActionStart,
