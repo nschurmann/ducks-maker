@@ -17,13 +17,13 @@ interface IActionSuccess<T> {
 interface IAsyncMac {
   error: (x: any) => IActionError,
   start: () => IActionStart,
-  success: <T>(x: T) => IActionSuccess<T>,
+  success: <T>(x?: T) => IActionSuccess<T>,
 }
 
 interface ISubscribeMac {
   add: <T>(x: T) => IActionSuccess<T>,
   subscribe: () => IActionStart,
-  unsubscribe: <T>(x: T) => IActionStart,
+  unsubscribe: () => IActionStart,
 }
 
 export function createReducer(initialState: {}, actionHandlers: {}): Reducer {
