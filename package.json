@@ -1,6 +1,6 @@
 {
   "name": "ducks-maker",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "Opinionated way to create redux ducks",
   "main": "index.js",
   "types": "src/index.ts",
