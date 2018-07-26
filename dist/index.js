@@ -76,8 +76,8 @@ exports.asyncMac = asyncMac;
 // subscribe
 function subscribeMac(types) {
     return {
-        add: mac("" + types.ADD),
-        subscribe: mac("" + types.SUBSCRIBE, 'payload'),
+        add: mac("" + types.ADD, 'payload'),
+        subscribe: mac("" + types.SUBSCRIBE),
         unsubscribe: mac("" + types.UNSUBSCRIBE),
     };
 }

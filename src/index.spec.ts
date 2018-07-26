@@ -42,13 +42,13 @@ describe('redux ducks', () => {
 
   it('makes a type', () => {
     const t = makeTypes('users')
-    const type = t('action-type')
+    const type = t('action-type').single()
     expect(type).toBe('users/action-type')
   })
 
   it('make async type', () => {
     const t = makeTypes('users')
-    const type = t('async-type', true)
+    const type = t('async-type').async()
     expect(type).toEqual({
       ERROR: 'users/async-type-error',
       START: 'users/async-type-start',
@@ -66,7 +66,7 @@ describe('redux ducks', () => {
 
   it('creates an async action', () => {
     const t = makeTypes('users')
-    const types: any = t('async-type', true)
+    const types: any = t('async-type').async()
     const actions = asyncMac(types)
     const { start, error, success } = actions
     expect(start()).toEqual({

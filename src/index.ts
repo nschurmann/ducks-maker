@@ -103,8 +103,8 @@ export function asyncMac(types: IAsyncTypes): IAsyncMac {
 // subscribe
 export function subscribeMac(types: ISubscribeTypes): ISubscribeMac {
   return {
-    add: mac(`${types.ADD}`),
-    subscribe: mac(`${types.SUBSCRIBE}`, 'payload'),
+    add: mac(`${types.ADD}`, 'payload'),
+    subscribe: mac(`${types.SUBSCRIBE}`),
     unsubscribe: mac(`${types.UNSUBSCRIBE}`),
   }
 }
